@@ -30,12 +30,14 @@ String TAG=MainActivity.class.getSimpleName();
     }
     @Override
     public void onClick(View v) {
+        notificationId++;
         Log.e(TAG, "onClick: called" );
         /*
         * calling an activity
         * */
         Intent in=new Intent(this,NotificaitonActivity.class);
-        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,in,0);
+in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,in,PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification=new Notification.Builder(getApplicationContext())
                                     .setTicker("hello")
                                     .setContentTitle("Content Title")
@@ -44,13 +46,24 @@ String TAG=MainActivity.class.getSimpleName();
                 /*calling an activity method by clicking the notification */
                                     .setContentIntent(pendingIntent)
                 /*
-                * after clicking cancle the notfication 
+                * after clicking cancle the notfication
                 * */
+
                 .setAutoCancel(true)
-                                    .getNotification();
+                .getNotification();
+
+
         NotificationManager notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0,notification);
+        /*
+        * creating multiple notifications based up on the id
+        * */
+        notificationManager.notify(notificationId,notification);
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

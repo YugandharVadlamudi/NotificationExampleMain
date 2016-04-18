@@ -2,6 +2,7 @@ package com.example.kiran.notificationexample.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,4 +23,9 @@ public class NotificaitonActivity extends Activity {
         linearLayout=(LinearLayout)findViewById(R.id.lnr_head);
         linearLayout.addView(textView);
     }
+
+    /*@Override
+    public void onBackPressed() {
+        System.exit(0);
+    }*/
 }
